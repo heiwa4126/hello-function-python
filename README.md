@@ -23,10 +23,10 @@ EAST Japanでもpythonが使えるようになっていたので(2019-10)
 - Azureのサブスクリプション
 - [Azure CLI](https://docs.microsoft.com/ja-jp/cli/azure/install-azure-cli)
   - pipで入れないこと。WindowsはMSI, Debian/Ubuntuはaptでレポジトリから入れること
-- Node.js 10.x (12.xはLTSでも今はダメ)
+- Node.js 10.x LTS(12.xはLTSでもAzure Functions Core Toolsが死ぬ)
 - [Azure Functions Core Tools](https://docs.microsoft.com/ja-jp/azure/azure-functions/functions-run-local#v2) 2.x
   - Windowsではnpmで入れないこと。chocolatey使うこと
-- Python 3.6以上
+- Python 3.6 (3.7以上だとAzure Functions Core Toolsが死ぬ)
 
 # git cloneからdeployまで
 
@@ -103,3 +103,7 @@ git commit -am 'Initial commit'
 python --verson
 ```
 が3ならvenvはいらないのでは?
+
+Azure Functions Core Toolsのバージョンチェックが厳しすぎ。
+
+Pythonだと(たぶんLinuxベースだと)デプロイセンターが使えない。githubでデプロイができない。これはたぶんLinuxベースのやつ(PythonとGolang)はdockerで動いてるからなのでは。docker hub経由にするか、Windowsで動くNode.jsか.NET Coreにするか。
