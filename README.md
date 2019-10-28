@@ -23,7 +23,7 @@ EAST Japanでもpythonが使えるようになっていたので(2019-10)
 - Azureのサブスクリプション
 - [Azure CLI](https://docs.microsoft.com/ja-jp/cli/azure/install-azure-cli)
   - pipで入れないこと。WindowsはMSI, Debian/Ubuntuはaptでレポジトリから入れること
-- Node.js 10.x (12.x LTSだとAzure Functions Core Toolsが死ぬ)
+- Node.js 10.x LTS(12.xはLTSでもAzure Functions Core Toolsが死ぬ)
 - [Azure Functions Core Tools](https://docs.microsoft.com/ja-jp/azure/azure-functions/functions-run-local#v2) 2.x
   - Windowsではnpmで入れないこと。chocolatey使うこと
 - Python 3.6 (3.7以上だとAzure Functions Core Toolsが死ぬ)
