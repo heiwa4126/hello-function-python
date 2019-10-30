@@ -15,6 +15,7 @@ EAST Japanでもpythonが使えるようになっていたので(2019-10)
   - [変更を加える](#%e5%a4%89%e6%9b%b4%e3%82%92%e5%8a%a0%e3%81%88%e3%82%8b)
   - [デプロイ](#%e3%83%87%e3%83%97%e3%83%ad%e3%82%a4)
 - [1から作る場合](#1%e3%81%8b%e3%82%89%e4%bd%9c%e3%82%8b%e5%a0%b4%e5%90%88)
+- [Docker](#docker)
 - [メモ](#%e3%83%a1%e3%83%a2)
 
 
@@ -133,6 +134,13 @@ func azure functionapp fetch-app-settings <APP_NAME>
 ```
 
 これでだいたい同じものができる。
+
+# Docker
+
+まだテスト中
+
+参照: [カスタム イメージを使用して Linux 上で Azure Functions を作成する | Microsoft Docs](https://docs.microsoft.com/ja-jp/azure/azure-functions/functions-create-function-linux-custom-image?tabs=nodejs)
+
 
 # メモ
 
