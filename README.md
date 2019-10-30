@@ -11,7 +11,7 @@ EAST Japanでもpythonが使えるようになっていたので(2019-10)
 - [hello-function-python](#hello-function-python)
 - [最低限用意するもの](#%e6%9c%80%e4%bd%8e%e9%99%90%e7%94%a8%e6%84%8f%e3%81%99%e3%82%8b%e3%82%82%e3%81%ae)
 - [git cloneからdeployまで](#git-clone%e3%81%8b%e3%82%89deploy%e3%81%be%e3%81%a7)
-  - [最初の1回](#%e6%9c%80%e5%88%9d%e3%81%ae1%e5%9b%9e)
+  - [準備](#%e6%ba%96%e5%82%99)
   - [変更を加える](#%e5%a4%89%e6%9b%b4%e3%82%92%e5%8a%a0%e3%81%88%e3%82%8b)
   - [デプロイ](#%e3%83%87%e3%83%97%e3%83%ad%e3%82%a4)
 - [1から作る場合](#1%e3%81%8b%e3%82%89%e4%bd%9c%e3%82%8b%e5%a0%b4%e5%90%88)
@@ -28,10 +28,23 @@ EAST Japanでもpythonが使えるようになっていたので(2019-10)
   - Windowsではnpmで入れないこと。chocolatey使うこと
 - Python 3.6 (3.7以上だとAzure Functions Core Toolsが死ぬ)
 
+↑バージョン云々は
+```
+$ func -v
+2.7.1724
+```
+での話。2019-10-29に
+[Release 2.7.1812 · Azure/azure-functions-core-tools](https://github.com/Azure/azure-functions-core-tools/releases/tag/2.7.1812)
+が出てるので、Python 3.7については使えるようになってるかも(未確認)。
+
+
+
 # git cloneからdeployまで
 
 
-## 最初の1回
+## 準備
+
+最初の1回だけ行う
 
 ``` bash
 git clone https://github.com/heiwa4126/hello-function-python.git
@@ -102,8 +115,18 @@ git commit -am 'Initial commit'
 ``` bash
 python --verson
 ```
-が3ならvenvはいらないのでは?
+が3ならvenvはいらないのでは? - そうでもなかった。今は3.6のみ。3.7ダメ
 
 Azure Functions Core Toolsのバージョンチェックが厳しすぎ。
 
-Pythonだと(たぶんLinuxベースだと)デプロイセンターが使えない。githubでデプロイができない。これはたぶんLinuxベースのやつ(PythonとGolang)はdockerで動いてるからなのでは。docker hub経由にするか、Windowsで動くNode.jsか.NET Coreにするか。
+Pythonだと(たぶんLinuxベースだと)デプロイセンターが使えない。githubでデプロイができない。
+これはたぶんLinuxベースのやつ(PythonとGolang)はdockerで動いてるからなのでは? docker hub経由にするか、Windowsで動くNode.jsか.NET Coreにするか。
+
+Pythonだと
+[Premium](https://docs.microsoft.com/ja-jp/azure/azure-functions/functions-scale#premium-plan)プラン
+か
+[専用 (App Service)](https://docs.microsoft.com/ja-jp/azure/azure-functions/functions-scale#app-service-plan)プラン
+でしか動かない。意図的に停止しない限りウォーム状態で課金される。
+
+[Azure Functions のスケールとホスティング | Microsoft Docs](https://docs.microsoft.com/ja-jp/azure/azure-functions/functions-scale#premium-plan)
+> 少なくとも 1 つのインスタンスが常にウォーム状態である必要があります。 つまり、実行数に関係なく、アクティブなプランごとに固定の月額コストがかかります
