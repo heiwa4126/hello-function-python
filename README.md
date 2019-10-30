@@ -139,9 +139,16 @@ func azure functionapp fetch-app-settings <APP_NAME>
 
 まだテスト中。
 
-`util/make-docker-function`
+[util/make-docker-function](/util/make-docker-function)
 と
 [カスタム イメージを使用して Linux 上で Azure Functions を作成する | Microsoft Docs](https://docs.microsoft.com/ja-jp/azure/azure-functions/functions-create-function-linux-custom-image?tabs=nodejs)
+を参照のこと。
+
+なぜかポータルでfunction作ると、Docker HubからのCI/CDがうまくいかない...
+あとPotalからDockerのfunctionだとInsightが作れないのも変。
+(なのでautomationも中途半端)
+
+スクリプトでやったほうがいいかも。
 
 
 # メモ
