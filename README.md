@@ -114,7 +114,7 @@ az functionapp deployment source config-zip -g <functionのリソースグルー
 作業ディレクトリに移動してから
 
 ``` bash
-func init hello-function-python
+func init hello-function-python --python --docker
 cd hello-function-python
 python3 -m venv .env
 source .env/bin/activate
@@ -123,6 +123,13 @@ func new --template "Http Trigger" --name HttpTrigger1
 git init
 git add --all
 git commit -am 'Initial commit'
+```
+
+function作って(ポータル or Azure CLI)
+
+local.settings.jsonに設定をダウンロード
+```
+func azure functionapp fetch-app-settings <APP_NAME>
 ```
 
 これでだいたい同じものができる。
