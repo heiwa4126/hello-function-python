@@ -4,4 +4,5 @@ local.settings.json
 .git
 .env
 util
-.funcignore
+.dockerignore
+Dockerfile

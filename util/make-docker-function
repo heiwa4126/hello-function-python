@@ -1,0 +1,41 @@
+#!/bin/sh -x
+# Docker Hub上のイメージを使ってfunctionを作る
+# Docker Hubにpushしてから実行のこと。
+#
+# 参考:
+# [カスタム イメージを使用して Linux 上で Azure Functions を作成する | Microsoft Docs]
+# (https://docs.microsoft.com/ja-jp/azure/azure-functions/functions-create-function-linux-custom-image?tabs=nodejs)
+
+REGION=japaneast
+FUNCNAME=hfp2ikatako
+DOCKERHUB_NAME=heiwa4126/hello-function-python:latest
+
+GRP="${FUNCNAME}grp"
+STG="${FUNCNAME}stg"
+PLN="${FUNCNAME}pln"
+
+# リソース グループの作成
+az group create --name "$GRP" --location "$REGION"
+
+# Azure Storage アカウントの作成
+az storage account create --name "$STG" --location "$REGION" --resource-group "$GRP" --sku Standard_LRS
+
+# Premium プランを作成する
+az functionapp plan create --resource-group "$GRP" --name "$PLN" --location "$REGION" \
+ --number-of-workers 1 --sku EP1 --is-linux
+
+# アプリをイメージから作成する
+az functionapp create --name "$FUNCNAME" --storage-account "$STG" --resource-group "$GRP" --plan "$PLN" \
+ --deployment-container-image-name "$DOCKERHUB_NAME"
+
+# Function App を構成する
+storageConnectionString=$(az storage account show-connection-string --resource-group "$GRP" --name "$STG" --query connectionString --output tsv)
+echo $storageConnectionString
+
+az functionapp config appsettings set --name "$FUNCNAME" --resource-group "$GRP" --settings AzureWebJobsDashboard=$storageConnectionString AzureWebJobsStorage=$storageConnectionString
+
+
+# 継続的配置を有効にする
+az functionapp deployment container config --enable-cd --query CI_CD_URL --output tsv --name "$FUNCNAME" --resource-group "$GRP"
+
+echo "↑このURLをDocker HubのWebhooksに追加する"
