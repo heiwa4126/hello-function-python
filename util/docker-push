@@ -1,0 +1,2 @@
+#!/bin/sh
+docker push heiwa4126/hello-function-python

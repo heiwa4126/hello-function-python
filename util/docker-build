@@ -1,0 +1,2 @@
+#!/bin/sh
+docker build -t heiwa4126/hello-function-python .

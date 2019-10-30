@@ -1,4 +1,4 @@
-#!/bin/sh -x
+#!/bin/sh -x -e -u
 # Docker Hub上のイメージを使ってfunctionを作る
 # Docker Hubにpushしてから実行のこと。
 #
