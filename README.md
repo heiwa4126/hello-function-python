@@ -15,7 +15,7 @@ EAST Japanでもpythonが使えるようになっていたので(2019-10)
   - [変更を加える](#%e5%a4%89%e6%9b%b4%e3%82%92%e5%8a%a0%e3%81%88%e3%82%8b)
   - [デプロイ](#%e3%83%87%e3%83%97%e3%83%ad%e3%82%a4)
 - [1から作る場合](#1%e3%81%8b%e3%82%89%e4%bd%9c%e3%82%8b%e5%a0%b4%e5%90%88)
-- [その他メモ](#%e3%81%9d%e3%81%ae%e4%bb%96%e3%83%a1%e3%83%a2)
+- [メモ](#%e3%83%a1%e3%83%a2)
 
 
 # 最低限用意するもの
@@ -26,7 +26,7 @@ EAST Japanでもpythonが使えるようになっていたので(2019-10)
 - Node.js 10.x LTS(12.xはLTSでもAzure Functions Core Toolsが死ぬ)
 - [Azure Functions Core Tools](https://docs.microsoft.com/ja-jp/azure/azure-functions/functions-run-local#v2) 2.x
   - Windowsではnpmで入れないこと。chocolatey使うこと
-- Python 3.6 (3.7以上だとAzure Functions Core Toolsが死ぬ)
+- Python 3.6 (3.7以上だとAzure Functions Core Toolsが警告吐いて死ぬ)
 
 ↑バージョン云々は
 ```
@@ -38,9 +38,7 @@ $ func -v
 が出てるので、Python 3.7については使えるようになってるかも(未確認)。
 
 
-
 # git cloneからdeployまで
-
 
 ## 準備
 
@@ -82,10 +80,14 @@ curlやブラウザでデバックなどなど。
 
 ## デプロイ
 
+AWS Lamdaのように「ポータルからZIPでデプロイ」というのがない。
+
+Azure Functions Core Tools(と Azure CLI)がインストールされている場合は:
 
 ``` bash
 func azure functionapp publish <APP_NAME> --build remote
 ```
+デプロイ(zip プッシュ デプロイ)。
 
 `--build remote`オプションをつけるとリモートビルドする。
 `pip install -r requirements.txt`をリモートでやってくれるらしい。
@@ -93,8 +95,23 @@ func azure functionapp publish <APP_NAME> --build remote
 `./.python_packages`があればこれも送信するらしい。
 
 
+Azure CLIなら
+``` 
+az functionapp deployment source config-zip -g <functionのリソースグループ> -n <function名> --src <zipfile名>
+```
+で。
+
+
+デプロイに関しては
+- [Azure Functions のデプロイ テクノロジ | Microsoft Docs](https://docs.microsoft.com/ja-jp/azure/azure-functions/functions-deployment-technologies)
+- [Azure Functions の継続的なデプロイ | Microsoft Docs](https://docs.microsoft.com/ja-jp/azure/azure-functions/functions-continuous-deployment)
+- [Azure Functions の zip プッシュ デプロイ | Microsoft Docs](https://docs.microsoft.com/ja-jp/azure/azure-functions/deployment-zip-push)
+
+を参照。
 
 # 1から作る場合
+
+作業ディレクトリに移動してから
 
 ``` bash
 func init hello-function-python
@@ -110,7 +127,7 @@ git commit -am 'Initial commit'
 
 これでだいたい同じものができる。
 
-# その他メモ
+# メモ
 
 ``` bash
 python --verson
