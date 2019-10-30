@@ -137,9 +137,11 @@ func azure functionapp fetch-app-settings <APP_NAME>
 
 # Docker
 
-まだテスト中
+まだテスト中。
 
-参照: [カスタム イメージを使用して Linux 上で Azure Functions を作成する | Microsoft Docs](https://docs.microsoft.com/ja-jp/azure/azure-functions/functions-create-function-linux-custom-image?tabs=nodejs)
+`util/make-docker-function`
+と
+[カスタム イメージを使用して Linux 上で Azure Functions を作成する | Microsoft Docs](https://docs.microsoft.com/ja-jp/azure/azure-functions/functions-create-function-linux-custom-image?tabs=nodejs)
 
 
 # メモ
